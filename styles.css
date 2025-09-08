@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap');
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Urbanist', sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+}
+
+.card {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 0px 12px 0px 0px;
+    padding: 24px;
+    max-width: 700px;
+    width: 90%;
+    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transition: backdrop-filter 0.3s ease;
+}
+
+input,
+.colorPickers input {
+    padding: 12px 18px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    margin-bottom: 12px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    font-family: 'Urbanist', sans-serif;
+}
+
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.02);
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.gradients,
+.colorPickers {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.colorPickers input {
+    width: 50px;
+    height: 53px;
+    padding: 5px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.colorPickers input:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.gradientBtn {
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-family: 'Urbanist', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.gradientBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.gradientBtn:active {
+    transform: scale(0.98);
+}
+
+.stopControls {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.stopControls button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: 'Urbanist', sans-serif;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    backdrop-filter: blur(8px);
+}
+
+.stopControls button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.stopControls button:active {
+    transform: scale(0.95);
+}
+
+.stopControls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+h2 {
+    margin-bottom: 16px;
+    text-align: left;
+    transition: color 0.3s ease;
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 600;
+}
+
+p {
+    text-align: left;
+    transition: color 0.3s ease;
+    font-family: 'Urbanist', sans-serif;
+}
+
+#install-button {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 1000;
+}
+
+/* Smooth scrollbar for the card */
+.card::-webkit-scrollbar {
+    width: 8px;
+}
+
+.card::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.card::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.card::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}

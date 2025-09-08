@@ -1,425 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prism | Gradient Viewer</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap');
-
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        font-family: 'Urbanist', sans-serif;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        overflow: hidden;
-      }
-
-      .card {
-        position: fixed;
-        left: 0px;
-        bottom: 0px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(12px);
-        border-radius: 0px 12px 0px 0px;
-        padding: 24px;
-        max-width: 700px;
-        width: 90%;
-        text-align: center;
-        max-height: 90vh;
-        overflow-y: auto;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-        transition: backdrop-filter 0.3s ease;
-      }
-
-      input,
-      .colorPickers input {
-        padding: 12px 18px;
-        font-size: 1rem;
-        border-radius: 12px;
-        border: none;
-        outline: none;
-        margin-bottom: 12px;
-        text-align: center;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(12px);
-        transition: all 0.3s ease;
-        font-family: 'Urbanist', sans-serif;
-      }
-
-      input[type="text"] {
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      input[type="text"]:focus {
-        background: rgba(255, 255, 255, 0.25);
-        transform: scale(1.02);
-      }
-
-      input::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-      }
-
-      .gradients,
-      .colorPickers {  
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-bottom: 16px;
-      }
-
-      .colorPickers input {  
-        width: 50px;
-        height: 53px;
-        padding: 5px;
-        border-radius: 12px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-
-      .colorPickers input:hover {
-        transform: scale(1.1);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      }
-      
-      .gradientBtn {
-        padding: 10px 16px;
-        border-radius: 12px;
-        border: none;
-        cursor: pointer;
-        font-weight: 600;
-        color: white;
-        transition: all 0.2s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-        font-family: 'Urbanist', sans-serif;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .gradientBtn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-      }
-
-      .gradientBtn:active {
-        transform: scale(0.98);
-      }
-
-      .stopControls {
-        margin-top: 10px;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-
-      .stopControls button {
-        padding: 8px 16px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.2s ease;
-        font-family: 'Urbanist', sans-serif;
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        backdrop-filter: blur(8px);
-      }
-
-      .stopControls button:hover { 
-        transform: scale(1.05); 
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-        background: rgba(255, 255, 255, 0.3);
-      }
-
-      .stopControls button:active {
-        transform: scale(0.95);
-      }
-
-      .stopControls button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        transform: none !important;
-      }
-
-      h2 {
-        margin-bottom: 16px;
-        text-align: left;
-        transition: color 0.3s ease;
-        font-family: 'Urbanist', sans-serif;
-        font-weight: 600;
-      }
-
-      p {
-        text-align: left;
-        transition: color 0.3s ease;
-        font-family: 'Urbanist', sans-serif;
-      }
-
-      /* Smooth scrollbar for the card */
-      .card::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      .card::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 4px;
-      }
-
-      .card::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 4px;
-      }
-
-      .card::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.5);
-      }
-    </style>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div class="card">
       <h2 id="title">Prism</h2>
       <p id="guide">Enter a CSS gradient or make your own...</p>
-      <input type="text" id="gradientInput"/>
+      <input type="text" id="gradientInput" />
       <div class="gradients">
-        <button class="gradientBtn" style="background: linear-gradient(to right, #ff6a00, #ee0979);" data-gradient="linear-gradient(to right, #ff6a00, #ee0979)">Sunset</button>
-        <button class="gradientBtn" style="background: linear-gradient(to right, #00f260, #0575e6);" data-gradient="linear-gradient(to right, #00f260, #0575e6)">Ocean</button>
-        <button class="gradientBtn" style="background: linear-gradient(to right, #f7971e, #ffd200);" data-gradient="linear-gradient(to right, #f7971e, #ffd200)">Gold</button>
-        <button class="gradientBtn" style="background: linear-gradient(to right, #00c6ff, #0072ff);" data-gradient="linear-gradient(to right, #00c6ff, #0072ff)">Sky</button>
-        <button class="gradientBtn" style="background: linear-gradient(to right, #8e2de2, #4a00e0);" data-gradient="linear-gradient(to right, #8e2de2, #4a00e0)">Purple</button>
+        <button
+          class="gradientBtn"
+          style="background: linear-gradient(to right, #ff6a00, #ee0979);"
+          data-gradient="linear-gradient(to right, #ff6a00, #ee0979)"
+        >
+          Sunset
+        </button>
+        <button
+          class="gradientBtn"
+          style="background: linear-gradient(to right, #00f260, #0575e6);"
+          data-gradient="linear-gradient(to right, #00f260, #0575e6)"
+        >
+          Ocean
+        </button>
+        <button
+          class="gradientBtn"
+          style="background: linear-gradient(to right, #f7971e, #ffd200);"
+          data-gradient="linear-gradient(to right, #f7971e, #ffd200)"
+        >
+          Gold
+        </button>
+        <button
+          class="gradientBtn"
+          style="background: linear-gradient(to right, #00c6ff, #0072ff);"
+          data-gradient="linear-gradient(to right, #00c6ff, #0072ff)"
+        >
+          Sky
+        </button>
+        <button
+          class="gradientBtn"
+          style="background: linear-gradient(to right, #8e2de2, #4a00e0);"
+          data-gradient="linear-gradient(to right, #8e2de2, #4a00e0)"
+        >
+          Purple
+        </button>
       </div>
       <div class="colorPickers" id="colorPickers"></div>
       <div class="stopControls">
         <button id="addStop">+ Add Stop</button>
         <button id="removeStop">− Remove Stop</button>
       </div>
+      <button class="gradientBtn" style="background: #00c6ff" id="install-button" hidden>Install App</button>
     </div>
+    <script src="main.js"></script>
     <script>
-      // Cache DOM elements
-      const elements = {
-        input: document.getElementById('gradientInput'),
-        buttons: document.querySelectorAll('.gradientBtn'),
-        title: document.getElementById('title'),
-        guide: document.getElementById('guide'),
-        pickersContainer: document.getElementById('colorPickers'),
-        addStopBtn: document.getElementById('addStop'),
-        removeStopBtn: document.getElementById('removeStop')
-      };
-
-      // Utility functions
-      const utils = {
-        hexToRgb(hex) {
-          hex = hex.replace(/^#/, '');
-          if (hex.length === 3) {
-            hex = hex.split('').map(c => c + c).join('');
-          }
-          const num = parseInt(hex, 16);
-          return [num >> 16, (num >> 8) & 255, num & 255];
-        },
-
-        getBrightness(rgb) {
-          return (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
-        },
-
-        pickTextColor(colors) {
-          if (colors.length === 0) return "white";
-          const rgbs = colors.map(c => this.hexToRgb(c));
-          const avgBrightness = rgbs.reduce((sum, rgb) => sum + this.getBrightness(rgb), 0) / rgbs.length;
-          return avgBrightness > 128 ? 'black' : 'white';
-        },
-
-        sanitizeGradient(gradStr) {
-          if (!gradStr) return null;
-          gradStr = gradStr.trim();
-          if (gradStr.endsWith(';')) {
-            gradStr = gradStr.slice(0, -1);
-          }
-          return gradStr;
-        },
-
-        extractColors(gradStr) {
-          const colorMatches = gradStr.matchAll(/#([0-9a-fA-F]{3,6})/g);
-          return Array.from(colorMatches, match => match[0]);
-        },
-
-        debounce(func, wait) {
-          let timeout;
-          return function executedFunction(...args) {
-            const later = () => {
-              clearTimeout(timeout);
-              func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-          };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Register the service worker
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("service-worker.js");
         }
-      };
 
-      // Main gradient management
-      const gradientManager = {
-        buildGradientFromPickers() {
-          const colorInputs = elements.pickersContainer.querySelectorAll("input[type=color]");
-          const colors = Array.from(colorInputs, picker => picker.value);
-          return `linear-gradient(to right, ${colors.join(", ")})`;
-        },
+        let deferredPrompt;
+        const installButton = document.getElementById("install-button");
 
-        updateBackground(gradStr) {
-          try {
-            document.body.style.background = gradStr;
-            document.body.style.backgroundSize = "cover";
-            return true;
-          } catch (error) {
-            console.warn('Invalid gradient:', error);
-            return false;
+        // Listen for the install prompt
+        window.addEventListener("beforeinstallprompt", (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          installButton.hidden = false;
+        });
+
+        // Handle install button click
+        installButton.addEventListener("click", async () => {
+          const isStandalone =
+            window.matchMedia("(display-mode: standalone)").matches ||
+            window.navigator.standalone;
+
+          if (isStandalone) {
+            console.log("App is already installed");
+            return;
           }
-        },
 
-        updateTextStyles(colors) {
-          const textColor = utils.pickTextColor(colors);
-          const isLight = textColor === 'black';
-          
-          elements.title.style.color = textColor;
-          elements.guide.style.color = textColor;
-          elements.input.style.color = textColor;
-          elements.input.style.background = isLight ? 
-            'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.15)';
-
-          // Update stop control button colors
-          elements.addStopBtn.style.color = textColor;
-          elements.removeStopBtn.style.color = textColor;
-        },
-
-        updateColorPickers(colors) {
-          const existingPickers = elements.pickersContainer.querySelectorAll("input[type=color]");
-          
-          // Only rebuild pickers if the count changes significantly
-          if (Math.abs(colors.length - existingPickers.length) > 0) {
-            this.rebuildPickers(colors);
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            console.log(
+              outcome === "accepted"
+                ? "User accepted install prompt"
+                : "User dismissed install prompt"
+            );
           } else {
-            // Update existing picker values
-            colors.forEach((color, i) => {
-              if (existingPickers[i]) {
-                existingPickers[i].value = color;
-              }
-            });
+            if (window.matchMedia("(display-mode: browser)").matches) {
+              window.location.assign("chrome://apps/");
+            }
           }
-        },
-
-        rebuildPickers(colors) {
-          // Clear existing pickers
-          elements.pickersContainer.innerHTML = "";
-          
-          // Create new pickers
-          colors.forEach(color => {
-            const picker = this.createColorPicker(color);
-            elements.pickersContainer.appendChild(picker);
-          });
-        },
-
-        createColorPicker(color) {
-          const picker = document.createElement("input");
-          picker.type = "color";
-          picker.value = color;
-          
-          // Use debounced update for better performance
-          const debouncedUpdate = utils.debounce(() => {
-            this.updateGradient(this.buildGradientFromPickers());
-          }, 50);
-          
-          picker.addEventListener("input", debouncedUpdate);
-          return picker;
-        },
-
-        updateRemoveButtonState() {
-          const pickerCount = elements.pickersContainer.querySelectorAll("input[type=color]").length;
-          elements.removeStopBtn.disabled = pickerCount <= 2;
-        },
-
-        updateGradient(gradStr, isManualInput = false) {
-          const sanitized = utils.sanitizeGradient(gradStr);
-          if (!sanitized) return;
-
-          // Update background
-          if (!this.updateBackground(sanitized)) return;
-
-          // Update input field if not manual input
-          if (!isManualInput) {
-            elements.input.value = sanitized;
-          }
-
-          // Extract and process colors
-          const colors = utils.extractColors(sanitized);
-          if (colors.length > 0) {
-            this.updateTextStyles(colors);
-            this.updateColorPickers(colors);
-          }
-
-          // Update UI state
-          this.updateRemoveButtonState();
-        }
-      };
-
-      // Event handlers
-      const eventHandlers = {
-        handlePresetClick(event) {
-          const gradient = event.target.dataset.gradient;
-          if (gradient) {
-            gradientManager.updateGradient(gradient);
-          }
-        },
-
-        handleManualInput: utils.debounce((event) => {
-          try {
-            gradientManager.updateGradient(event.target.value, true);
-          } catch (error) {
-            // Silently handle invalid gradients during typing
-          }
-        }, 300),
-
-        handleAddStop() {
-          const picker = gradientManager.createColorPicker("#ffffff");
-          elements.pickersContainer.appendChild(picker);
-          gradientManager.updateGradient(gradientManager.buildGradientFromPickers());
-        },
-
-        handleRemoveStop() {
-          const pickers = elements.pickersContainer.querySelectorAll("input[type=color]");
-          if (pickers.length > 2) {
-            elements.pickersContainer.removeChild(pickers[pickers.length - 1]);
-            gradientManager.updateGradient(gradientManager.buildGradientFromPickers());
-          }
-        }
-      };
-
-      // Initialize the application
-      function init() {
-        // Attach event listeners
-        elements.buttons.forEach(btn => 
-          btn.addEventListener('click', eventHandlers.handlePresetClick)
-        );
-        
-        elements.input.addEventListener('input', eventHandlers.handleManualInput);
-        elements.addStopBtn.addEventListener('click', eventHandlers.handleAddStop);
-        elements.removeStopBtn.addEventListener('click', eventHandlers.handleRemoveStop);
-
-        // Set initial gradient
-        gradientManager.updateGradient("linear-gradient(to right, #00c6ff, #0072ff)");
-      }
-
-      // Start the application when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else {
-        init();
-      }
+        });
+      });
     </script>
   </body>
 </html>
